@@ -1,0 +1,15 @@
+<turbo-frame id="modal-confirmation">
+    <div class="modal modal-open">
+        <div class="modal-box m-auto text-center">
+            <p class="mb-4"><i class="fa fa-exclamation-triangle fa-4x text-error"></i></p>
+            <p>{{ confirmationText }}</p>
+            <div class="modal-action justify-center">
+                <a href="{{ path('app_util_empty_modal_confirmation') }}" class="btn">Annuler</a>
+                {{ form_start(form) }}
+                <button class="btn btn-error">Supprimer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</turbo-frame>
+

@@ -1,0 +1,6 @@
+{{ form_row(form.name) }}
+{{ form_row(form.defaultLabel) }}
+
+{{ include('feature/configuration/form/_' ~ form.type.vars.data ~ '.html.twig', { form: form.configuration}) }}
+
+{{ form_row(form.type) }}

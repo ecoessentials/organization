@@ -1,0 +1,23 @@
+<turbo-frame id="product-feature-group-{{ group.id }}"
+             data-sortable-collection-update-url="{{ path('app_product_feature_group_move', {product: product.id, group: group.id}) }}"
+>
+    <div class="flex items-center gap-2 py-2">
+        <div class="align-middle pr-2"><i class="handle fa fa-lg fa-grip-vertical opacity-50"></i></div>
+        <div class="w-full align-middle pl-1 flex-grow">
+            {{ group.name }}
+        </div>
+        <a href="{{ path('app_' ~ resourceType ~ '_update', { product: group.product.id, group: group.id }) }}"
+           class="ml-auto btn btn-ghost btn-circle"
+        >
+            <i class="fa fa-edit fa-lg"></i>
+        </a>
+        <a href="{{ path('app_' ~ resourceType ~ '_delete', { product: group.product.id, group: group.id }) }}"
+           class="btn btn-error btn-ghost btn-circle text-error"
+           data-turbo-frame="modal-confirmation"
+        >
+            <i class="fa fa-trash fa-lg"></i>
+        </a>
+    </div>
+
+    {{ include('product_feature_group/_features.html.twig', { product: product, group: group}) }}
+</turbo-frame>

@@ -1,0 +1,21 @@
+<turbo-frame id="product-feature-group-{{ group.id }}">
+    {{ form_start(form) }}
+    <div class="w-full flex items-center gap-2 py-2">
+        <div class="align-middle pr-2"><i class="handle fa fa-lg fa-grip-vertical opacity-50"></i></div>
+        <div class="w-full align-middle pl-1 flex-grow">
+            {{ form_widget(form.name, { attr: { class: "w-full"}}) }}
+        </div>
+        <div class="align-middle pl-1">
+            <button class="btn text-success btn-ghost btn-circle ml-auto mt-1 flex flex-nowrap" formnovalidate>
+                <i class="fa fa-check fa-lg"></i>
+            </button>
+        </div>
+        <a href="{{ path('app_product_feature_group_show', { product: group.product.id, group: group.id}) }}"
+           class="btn btn-ghost text-base-300 btn-circle ml-auto mt-1 flex flex-nowrap"
+        >
+            <i class="fa fa-times fa-lg"></i>
+        </a>
+    </div>
+    {{ form_errors(form.name, { attr: { class: "mt-2"}}) }}
+    {{ form_end(form) }}
+</turbo-frame>

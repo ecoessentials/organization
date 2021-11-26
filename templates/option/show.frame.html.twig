@@ -1,0 +1,21 @@
+<turbo-frame
+        id="option-{{ option.id }}"
+        class="flex items-center gap-2 py-2"
+        data-sortable-collection-update-url="{{ path('app_option_move', {feature: option.feature.id, option: option.id}) }}"
+>
+    <div class="align-middle pr-2"><i class="handle fa fa-lg fa-grip-vertical opacity-50"></i></div>
+    <div class="w-full align-middle pl-1 flex-grow">
+        {{ option.name }}
+    </div>
+    <a href="{{ path('app_' ~ resourceType ~ '_update', { feature: option.feature.id, option: option.id }) }}"
+       class="ml-auto btn btn-ghost btn-circle"
+    >
+        <i class="fa fa-edit fa-lg"></i>
+    </a>
+    <a href="{{ path('app_' ~ resourceType ~ '_delete', { feature: option.feature.id, option: option.id }) }}"
+       class="btn btn-error btn-ghost btn-circle text-error"
+       data-turbo-frame="modal-confirmation"
+    >
+        <i class="fa fa-trash fa-lg"></i>
+    </a>
+</turbo-frame>

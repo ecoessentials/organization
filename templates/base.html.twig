@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<html data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="turbo-cache-control" content="no-cache">
+    <title>{% block title %}Essentials Workflow{% endblock %}</title>
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body class="h-screen overflow-hidden">
+<main class="w-full h-full flex flex-col overflow-hidden">
+    {{ include('partials/_navigation.html.twig', {
+        menu: [
+            { label: 'Projets', route: 'app_project'},
+            { label: 'Tiers', route: 'app_third_party'},
+            { label: 'Produits', route: 'app_product'},
+            { label: 'Caractéristiques', route: 'app_feature'}
+        ]
+    }) }}
+    <div class="flex-grow overflow-hidden">
+        {% block body %}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    </div>
+</main>
+<turbo-frame id="modal-confirmation"></turbo-frame>
+</body>
 </html>

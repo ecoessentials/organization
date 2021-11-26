@@ -1,0 +1,7 @@
+{{ resource.name }}
+{% if resource.customer %}
+    <span class="badge rounded-pill badge-info">Client</span>
+{% endif %}
+{% if resource.supplier %}
+    <span class="badge rounded-pill badge-info">Fournisseur</span>
+{% endif %}

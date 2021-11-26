@@ -1,0 +1,5 @@
+<turbo-stream action="replace" target="product-feature-{{ feature.id }}">
+    <template>
+        {{ include('product_feature/show.frame.html.twig', {group: feature.group, feature: feature }) }}
+    </template>
+</turbo-stream>

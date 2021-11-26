@@ -1,0 +1,9 @@
+{% set address %}
+    <p>{{ resource.postalAddress.street }}</p>
+    <p>{{ resource.postalAddress.postalCode }} {{ resource.postalAddress.city }}</p>
+{% endset %}
+
+{{ include('partials/_detail_field.html.twig', {label: 'Adresse', value: address}) }}
+{{ include('partials/_detail_field.html.twig', {label: 'E-mail', value: resource.email}) }}
+{{ include('partials/_detail_field.html.twig', {label: 'Téléphone', value: resource.telephone}) }}
+{{ include('partials/_detail_field.html.twig', {label: 'Site web', value: resource.website}) }}

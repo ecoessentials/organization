@@ -1,0 +1,17 @@
+<table class="mb-4">
+    <tbody>
+    {% for item in form.vars.data.options %}
+        <td class="align-middle pr-2"><i class="handle fa fa-lg fa-grip-vertical opacity-50"></i></td>
+        <td class="w-full align-middle pl-1">
+            {{ form_row(item.id) }}
+            {{ form_row(item.order, { attr: { 'data-sortable-collection-target': 'order'} }) }}
+            {{ form_widget(item.label) }}
+        </td>
+        <td class="align-middle pl-1">
+            <a class="btn btn-error ml-auto mt-1 flex flex-nowrap" data-action="collection#remove"><i
+                        class="fa fa-trash fa-lg mr-4"></i> Supprimer</a>
+        </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

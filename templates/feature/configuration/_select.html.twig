@@ -1,0 +1,9 @@
+{{ include('partials/_detail_field.html.twig', {label: 'Choix multiple', value: configuration.multiple ? 'Oui' : 'Non'}) }}
+
+{#{% set options_render %}#}
+{#    {{ include('feature/configuration/_select_options.html.twig', {options: configuration.options}) }}#}
+{#{% endset %}#}
+
+{#{{ include('partials/_detail_field.html.twig', {label: 'Options', value: options_render}) }}#}
+
+{{ include('partials/_detail_field.html.twig', {label: "Nombre d'options", value: resource.options|length }) }}

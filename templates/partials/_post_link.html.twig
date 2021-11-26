@@ -1,0 +1,16 @@
+<form method="post" action="{{ link }}">
+    {% if csrf_id is not defined %}
+        {% set csrf_id = link %}
+    {% endif %}
+    {% if csrf is not defined or csrf %}
+        <input type="hidden" name="token" value="{{ csrf_token(csrf_id) }}"/>
+    {% endif %}
+    <button class="btn {% if label is not defined %}btn-circle btn-ghost text-{{ type }}{% else %}btn-{{ type }}{% endif%} ml-auto flex flex-nowrap">
+        {% if icon is defined %}
+            <i class="fa fa-{{ icon }} fa-lg {% if label is defined %}mr-4{% endif%}"></i>
+        {% endif %}
+        {% if label is defined %}
+            {{ label }}
+        {% endif %}
+    </button>
+</form>

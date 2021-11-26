@@ -1,0 +1,25 @@
+<turbo-frame id="{{ resourceType }}-detail">
+    <div class="h-full flex flex-col">
+        <div class="flex text-xl border-b border-base-200 h-16 items-center gap-2 p-4 flex-shrink-0">
+            {% block resource_header %}{% endblock %}
+            {{ include(resourceType ~ '/_header.html.twig') }}
+            <a href="{{ path('app_' ~ resourceType ~ '_update', {id: resource.id}) }}"
+               class="ml-auto btn btn-ghost btn-circle"
+            >
+                <i class="fa fa-edit fa-lg"></i>
+            </a>
+            <a href="{{ path('app_' ~ resourceType ~ '_delete', {id: resource.id}) }}"
+               class="btn btn-error btn-ghost btn-circle text-error"
+               data-turbo-frame="modal-confirmation"
+            >
+                <i class="fa fa-trash fa-lg"></i>
+            </a>
+        </div>
+        <div class="flex flex-col gap-4 p-4 overflow-y-auto">
+            {{ include(resourceType ~ '/_detail.html.twig') }}
+        </div>
+    </div>
+</turbo-frame>
+
+
+

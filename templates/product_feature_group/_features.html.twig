@@ -1,0 +1,6 @@
+<div class="px-8 py-4 rounded-lg bg-base-200" id="product-group-features-{{ group.id }}">
+    <turbo-frame id="product-features-{{ group.id }}"
+                 src="{{ path('app_product_feature', { group: group.id}) }}">
+        <button class="btn btn-sm btn-ghost loading"></button>
+    </turbo-frame>
+</div>

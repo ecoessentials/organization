@@ -1,0 +1,10 @@
+<turbo-frame id="project-items-add-{{ project.id }}">
+    {{ form_start(form, { attr: { class: 'flex items-start gap-2'}}) }}
+    <div class="w-full align-middle pl-1 flex-grow">
+        {{ form_widget(form.product, { attr: { autofocus: true, class: "w-full"}}) }}
+        {{ form_errors(form.product, { attr: { class: "mt-2"}}) }}
+    </div>
+    <button formnovalidate
+            class="btn text-success btn-ghost btn-circle"><i class="fa fa-plus fa-lg"></i></button>
+    {{ form_end(form) }}
+</turbo-frame>

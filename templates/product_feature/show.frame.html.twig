@@ -1,0 +1,21 @@
+<turbo-frame
+        id="product-feature-{{ feature.id }}"
+        class="flex items-center gap-2 py-2"
+        data-sortable-collection-update-url="{{ path('app_product_feature_move', {group: group.id, feature: feature.id}) }}"
+>
+    <div class="align-middle pr-2"><i class="handle fa fa-lg fa-grip-vertical opacity-50"></i></div>
+    <div class="w-full align-middle pl-1 flex-grow">
+        {{ feature.name }}
+    </div>
+    <a href="{{ path('app_' ~ resourceType ~ '_update', { group: feature.group.id, feature: feature.id }) }}"
+       class="ml-auto btn btn-ghost btn-circle"
+    >
+        <i class="fa fa-edit fa-lg"></i>
+    </a>
+    <a href="{{ path('app_' ~ resourceType ~ '_delete', { group: feature.group.id, feature: feature.id }) }}"
+       class="btn btn-error btn-ghost btn-circle text-error"
+       data-turbo-frame="modal-confirmation"
+    >
+        <i class="fa fa-trash fa-lg"></i>
+    </a>
+</turbo-frame>

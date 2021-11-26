@@ -1,0 +1,20 @@
+{% set resource = form.vars.data %}
+
+<turbo-frame id="{{ resourceType }}-detail">
+    <div class="h-full flex flex-col">
+        <div class="flex text-xl border-b border-base-200 h-16 items-center gap-2 p-4 flex-shrink-0">
+            {% block create_title %}{% endblock %}
+        </div>
+        {{ form_start(form, { attr: { class: 'flex-grow flex flex-col overflow-hidden'}}) }}
+        <div class="flex-grow overflow-y-auto p-4">
+            {{ include(resourceType ~ '/_form_create.html.twig') }}
+            {{ form_row(form._token) }}
+        </div>
+        <div class="p-4 border-t border-base-200">
+            <button formnovalidate
+                    class="btn btn-primary">{% block create_button_label %}Créer{% endblock %}</button>
+        </div>
+        {{ form_end(form, { render_rest: false }) }}
+    </div>
+</turbo-frame>
+

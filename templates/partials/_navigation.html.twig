@@ -1,0 +1,8 @@
+<div class="navbar flex-none bg-base-300 text-neutral-content">
+    <div class="flex gap-2">
+        {% for menuItem in menu %}
+            <a href="{{ path(menuItem.route) }}"
+               class="btn btn-ghost {{ app.request.get('_route') is same as menuItem.route ? 'btn-active' : '' }}">{{ menuItem.label }}</a>
+        {% endfor %}
+    </div>
+</div>

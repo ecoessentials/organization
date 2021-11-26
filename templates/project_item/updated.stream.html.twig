@@ -1,0 +1,5 @@
+<turbo-stream action="replace" target="project-item-{{ item.id }}">
+    <template>
+        {{ include('project_item/show.frame.html.twig', {project: project, item: item }) }}
+    </template>
+</turbo-stream>

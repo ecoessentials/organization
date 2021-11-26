@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="flex items-stretch h-full">
+        <div class="w-4/12 bg-base-200 pt-0">
+            <turbo-frame id="{{ resourceType }}-list" src="{{ path('app_' ~ resourceType ~ '_list') }}"  target="_top" class="h-full"></turbo-frame>
+        </div>
+        <div class="w-8/12 overflow-hidden">
+{#            <div id="{{ resourceType }}-detail" class="h-full"></div>#}
+            <turbo-frame id="{{ resourceType }}-detail" class="h-full">
+            </turbo-frame>
+        </div>
+    </div>
+{% endblock %}
+
+
+

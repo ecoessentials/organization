@@ -1,0 +1,21 @@
+{% if resource.type == 'select' %}
+    <div {{ stimulus_controller('tabs', { currentTabId: 'general' }) }}>
+        <div class="tabs mb-4">
+            <a class="tab tab-lifted" {{ stimulus_target('tabs', 'tab') }} {{ stimulus_action('tabs', 'selectTab') }}
+               data-tab-id="general">Général</a>
+            <a class="tab tab-lifted" {{ stimulus_target('tabs', 'tab') }} {{ stimulus_action('tabs', 'selectTab') }}
+               data-tab-id="options">Options</a>
+            <div class="flex-1 cursor-default tab tab-lifted"></div>
+        </div>
+        <div {{ stimulus_target('tabs', 'tabContent') }} data-tab-id="general" class="hidden flex flex-col gap-4">
+            {{ include('partials/_detail_field.html.twig', {label: 'Libellé par défaut', value: resource.defaultLabel}) }}
+            {{ include('feature/configuration/_' ~ resource.type ~ '.html.twig', { configuration: resource.configuration}) }}
+        </div>
+        <div {{ stimulus_target('tabs', 'tabContent') }} data-tab-id="options" class="hidden">
+            <turbo-frame id="select-options" src="{{ path('app_option', { feature: resource.id}) }}"></turbo-frame>
+        </div>
+    </div>
+{% else %}
+    {{ include('partials/_detail_field.html.twig', {label: 'Libellé par défaut', value: resource.defaultLabel}) }}
+    {{ include('feature/configuration/_' ~ resource.type ~ '.html.twig', { configuration: resource.configuration}) }}
+{% endif %}

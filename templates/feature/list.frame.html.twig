@@ -1,0 +1,28 @@
+{% extends 'layout/list.frame.html.twig' %}
+
+{% block no_resources %}
+    Aucune caractéristique enregistrée.
+{% endblock %}
+
+{% block add_resource %}
+    <div class="dropdown dropdown-end">
+        <div tabindex="0" class="btn btn-ghost btn-circle">
+            <i class="fa fa-plus fa-lg"></i>
+        </div>
+        <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box">
+            {% for type, label in feature_types %}
+                <li>
+                    <a href="{{ path('app_' ~ resourceType ~ '_create_type', { type: type }) }}"
+                       class="btn btn-ghost normal-case whitespace-nowrap w-full"
+                       {{ stimulus_action('list', 'deselect', 'click') }}
+                       data-turbo-frame="{{ resourceType }}-detail"
+                    >
+                        {{ label }}
+                    </a>
+                </li>
+            {% endfor %}
+
+
+        </ul>
+    </div>
+{% endblock %}

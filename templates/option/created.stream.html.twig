@@ -1,0 +1,14 @@
+<turbo-stream action="append" target="select-options-list">
+    <template>
+        {{ include('option/show.frame.html.twig', {feature: option.feature, option: option}) }}
+    </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="select-options-add">
+    <template>
+        <turbo-frame
+                id="select-options-add"
+                src="{{ path('app_option_create', { feature: option.feature.id }) }}"
+        ></turbo-frame>
+    </template>
+</turbo-stream>

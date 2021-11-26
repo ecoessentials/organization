@@ -1,6 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-
+    form_themes: ['daisy_layout.html.twig']
+    globals:
+        feature_types: '%feature_types%'
 when@test:
     twig:
         strict_variables: true

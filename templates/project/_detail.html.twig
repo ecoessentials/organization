@@ -1,0 +1,13 @@
+<div {{ stimulus_controller('tabs', { currentTabId: 'state' }) }}>
+    <div class="tabs mb-4">
+        <a class="tab tab-lifted" {{ stimulus_target('tabs', 'tab') }} {{ stimulus_action('tabs', 'selectTab') }} data-tab-id="state">Etat</a>
+        <a class="tab tab-lifted" {{ stimulus_target('tabs', 'tab') }} {{ stimulus_action('tabs', 'selectTab') }} data-tab-id="detail">Postes</a>
+        <div class="flex-1 cursor-default tab tab-lifted"></div>
+    </div>
+    <div {{ stimulus_target('tabs', 'tabContent') }} data-tab-id="state" class="hidden">Contenu Etat</div>
+    <div {{ stimulus_target('tabs', 'tabContent') }} data-tab-id="detail" class="hidden">
+        <turbo-frame loading="lazy" id="project-items-{{ resource.id }}" src="{{ path('app_project_item', { project: resource.id}) }}">
+            <button class="btn btn-sm btn-ghost loading"></button>
+        </turbo-frame>
+    </div>
+</div>

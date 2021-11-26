@@ -1,0 +1,16 @@
+<turbo-stream action="append" target="product-features-list-{{ group.id }}">
+    <template>
+        {{ include('product_feature/show.frame.html.twig', { group: feature.group, feature: feature}) }}
+    </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="product-features-add-{{ group.id }}">
+    <template>
+        <turbo-frame
+                id="product-features-add-{{ group.id }}"
+                src="{{ path('app_product_feature_create', { group: feature.group.id }) }}"
+        >
+            <button class="btn btn-sm btn-ghost loading"></button>
+        </turbo-frame>
+    </template>
+</turbo-stream>

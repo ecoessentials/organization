@@ -1,0 +1,15 @@
+<turbo-frame id="product-feature-groups-add">
+    {{ form_start(form) }}
+    <div class="w-full flex items-center gap-2">
+        <div class="w-full align-middle pl-1 flex-grow">
+            {{ form_widget(form.name, { attr: { autofocus: true, class: "w-full"}}) }}
+            {{ form_errors(form.name, { attr: { class: "mt-2"}}) }}
+        </div>
+        <button formnovalidate
+                class="btn text-success btn-ghost btn-circle"
+        >
+            <i class="fa fa-plus fa-lg"></i>
+        </button>
+    </div>
+    {{ form_end(form) }}
+</turbo-frame>

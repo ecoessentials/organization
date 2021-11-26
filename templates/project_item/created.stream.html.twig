@@ -1,0 +1,16 @@
+<turbo-stream action="append" target="project-items-list-{{ project.id }}">
+    <template>
+        {{ include('project_item/show.frame.html.twig', { project: item.project, item: item}) }}
+    </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="project-items-add-{{ project.id }}">
+    <template>
+        <turbo-frame
+                id="project-items-add-{{ project.id }}"
+                src="{{ path('app_project_item_create', { project: item.project.id }) }}"
+        >
+            <button class="btn btn-sm btn-ghost loading"></button>
+        </turbo-frame>
+    </template>
+</turbo-stream>

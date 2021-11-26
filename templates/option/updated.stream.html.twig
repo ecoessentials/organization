@@ -1,0 +1,5 @@
+<turbo-stream action="replace" target="option-{{ option.id }}">
+    <template>
+        {{ include('option/show.frame.html.twig', {feature: option.feature, option: option }) }}
+    </template>
+</turbo-stream>

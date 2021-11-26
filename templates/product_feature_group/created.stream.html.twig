@@ -1,0 +1,15 @@
+<turbo-stream action="append" target="product-feature-groups-list">
+    <template>
+        {{ include('product_feature_group/show.frame.html.twig', { product: group.product, group: group}) }}
+    </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="product-feature-groups-add">
+    <template>
+        <turbo-frame
+                id="product-feature-groups-add"
+                src="{{ path('app_product_feature_group_create', { product: group.product.id }) }}"
+        >
+        </turbo-frame>
+    </template>
+</turbo-stream>

@@ -1,0 +1,11 @@
+<turbo-stream action="update" target="{{ resourceType }}-detail">
+    <template>
+        {{ include(resourceType ~ '/show.frame.html.twig') }}
+    </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="{{ resourceType }}-{{ resource.id }}">
+    <template>
+        {{ include(resourceType ~ '/_item.html.twig') }}
+    </template>
+</turbo-stream>

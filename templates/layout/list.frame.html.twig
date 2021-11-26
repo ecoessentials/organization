@@ -1,0 +1,62 @@
+<turbo-frame id="{{ resourceType }}-list">
+    <div class="flex flex-col h-full" {{ stimulus_controller('list') }}>
+        <div class="flex text-xl border-b border-base-100 mb-4 h-16 items-center gap-2 flex-shrink-0 p-4">
+            <a href="{{ path('app_' ~ resourceType ~ '_list') }}" data-turbo-frame="_self"
+               class="btn btn-ghost btn-circle ml-auto">
+                <i class="fa fa-sync fa-lg"></i>
+            </a>
+            {% block add_resource %}
+{#                <form method="post" action="{{ path('app_' ~ resourceType ~ '_create') }}">#}
+{#                    <button class="btn btn-ghost btn-circle" {{ stimulus_action('list', 'deselect') }}>#}
+{#                        <i class="fa fa-plus fa-lg"></i>#}
+{#                    </button>#}
+{#                </form>#}
+                <a href="{{ path('app_' ~ resourceType ~ '_create') }}"
+                   class="btn btn-ghost btn-circle"
+                   {{ stimulus_action('list', 'deselect') }}
+                        data-turbo-frame="{{ resourceType }}-detail"
+                >
+                    <i class="fa fa-plus fa-lg"></i>
+                </a>
+            {% endblock %}
+        </div>
+
+        {% if resources is not empty %}
+            <ul class="flex flex-col gap-2 h-full overflow-y-auto p-4">
+                {% for resource in resources %}
+                    <li class="list-group-item" id="list-item-{{ resourceType }}-{{ resource.id }}">
+{#                        <form method="post" action="{{ path('app_' ~ resourceType ~ '_show', {id: resource.id}) }}">#}
+{#                            <button#}
+{#                                    class="btn btn-ghost w-full justify-start normal-case"#}
+{#                                    {{ stimulus_target('list', 'item') }}#}
+{#                                    {{ stimulus_action('list', 'selectItem') }}#}
+{#                                    data-list-item-id="{{ resource.id }}"#}
+{#                                    id="{{ resourceType }}-{{ resource.id }}"#}
+{#                            >#}
+{#                                {{ include(resourceType ~ '/_item.html.twig') }}#}
+{#                            </button>#}
+{#                        </form>#}
+                        <a href="{{ path('app_' ~ resourceType ~ '_show', {id: resource.id}) }}"
+                           class="btn btn-ghost w-full justify-start normal-case"
+                           {{ stimulus_target('list', 'item') }}
+                           {{ stimulus_action('list', 'selectItem') }}
+                           data-list-item-id="{{ resource.id }}"
+                           id="{{ resourceType }}-{{ resource.id }}"
+                           data-turbo-frame="{{ resourceType }}-detail"
+                        >
+                            {{ include(resourceType ~ '/_item.html.twig') }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-primary p-4" role="alert">
+                {% block no_resources %}{% endblock %}
+            </div>
+        {% endif %}
+    </div>
+</turbo-frame>
+
+
+
+

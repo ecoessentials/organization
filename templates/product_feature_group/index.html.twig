@@ -1,0 +1,22 @@
+<turbo-frame id="product-feature-groups">
+    <div
+            id="product-feature-groups-list"
+            class="mb-4"
+            data-controller="sortable-collection"
+            data-sortable-collection-handle-value=".handle"
+    >
+        {% for group in product.featureGroups %}
+            {{ include('product_feature_group/show.frame.html.twig', { product: product, group: group}) }}
+        {% endfor %}
+
+    </div>
+    <div class="w-full pt-4">
+        <turbo-frame
+                id="product-feature-groups-add"
+                src="{{ path('app_product_feature_group_create', { product: product.id }) }}"
+        >
+        </turbo-frame>
+    </div>
+
+
+</turbo-frame>
