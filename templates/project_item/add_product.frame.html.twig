@@ -1,0 +1,34 @@
+<turbo-frame id="project-item-add-{{ item.id }}">
+    {{ form_start(form, {attr: {novalidate: true}}) }}
+    {% set ignoreGroups = product.featureGroups|length <= 1 %}
+    {{ form_row(form.name) }}
+    {% for group in product.featureGroups %}
+        <div>
+            {% if not ignoreGroups %}
+                <div class="mb-3 bg-base-300 -mx-2 px-2 py-1 opacity-50">{{ group.name }}</div>
+            {% endif %}
+            <div class="flex flex-col gap-4 overflow-y-visible">
+                {% for feature in group.features %}
+                    {% for featureValue in form.featureValues %}
+                        {% if featureValue.vars.data.productFeature == feature %}
+                            {% if feature.feature.type == 'select' %}
+                                {{ form_row(featureValue, {attr: {'data-controller': 'select'}, row_attr: { class: 'mb-0' }}) }}
+                            {% else %}
+                                {{ form_row(featureValue, {row_attr: { class: 'mb-0' }}) }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="{{ path('app_project_item_add', { project: project.id, item: item.id }) }}" class="btn mr-2">
+        Annuler
+    </a>
+    <button formnovalidate
+            class="btn btn-success"><i class="fa fa-plus fa-lg mr-2"></i> Ajouter
+    </button>
+    {{ form_row(form._token) }}
+    {{ form_end(form, {render_rest: false}) }}
+</turbo-frame>

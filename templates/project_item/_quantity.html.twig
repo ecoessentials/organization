@@ -1,0 +1,11 @@
+% set quantityType = form.quantityType.vars.data %}
+
+{% if quantityType == 'one_model' %}
+    {{ form_row(form.quantities) }}
+{% elseif quantityType == 'same_quantity' %}
+    {{ form_row(form.modelCount) }}
+    {{ form_row(form.quantities, {label: "Nombre d'exemplaires de chaque modèle"}) }}
+{% else %}
+    {{ form_row(form.modelCount) }}
+    {{ form_row(form.quantities, {label: "Quantité totale"}) }}
+{% endif %}

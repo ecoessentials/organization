@@ -1,22 +1,88 @@
-{% set ignoreGroups = item.product.featureGroups|length <= 1 %}
-<div class="px-8 py-4 rounded-lg bg-base-200 mb-6 flex flex-col gap-4">
-    {% for group in item.product.featureGroups %}
-        <div>
-            {% if not ignoreGroups %}
-                <div class="mb-3 bg-base-300 -mx-2 px-2 py-1 opacity-50">{{ group.name }}</div>
+<div class="px-8 py-4 rounded-lg bg-base-200 mb-6 flex flex-col gap-4 divide-y divide-base-100"
+     data-controller="sortable-collection"
+     data-sortable-collection-handle-value=".handle"
+>
+    {% set ignoreName = item.products|length <= 1 %}
+    {% for itemProduct in item.products %}
+        <div id="project-item-product-{{ itemProduct.id }}"
+             data-sortable-collection-update-url="{{ path('app_project_item_product_move', {project: project.id, item: item.id, product: itemProduct.id}) }}"
+        >
+            {% set product = itemProduct.product %}
+            {% set ignoreGroups = product.featureGroups|length <= 1 %}
+            {% if not ignoreName %}
+                <div class="flex items-center gap-2 py-2">
+                    <div class="align-middle pr-2"><i class="handle fa fa-lg fa-grip-vertical opacity-50"></i></div>
+                    <div class="w-full align-middle pl-1 flex-grow">
+                        {{ itemProduct.name }}
+                    </div>
+                    {#                <a href="{{ path('app_' ~ resourceType ~ '_update', { project: project.id, item: item.id }) }}" #}
+                    {#                   class="ml-auto btn btn-ghost btn-circle" #}
+                    {#                > #}
+                    {#                    <i class="fa fa-edit fa-lg"></i> #}
+                    {#                </a> #}
+                    <a href="{{ path('app_project_item_product_delete', { project: project.id, item: item.id, product: itemProduct.id }) }}"
+                       class="btn btn-error btn-ghost btn-circle text-error"
+                       data-turbo-frame="modal-confirmation"
+                    >
+                        <i class="fa fa-trash fa-lg"></i>
+                    </a>
+                </div>
             {% endif %}
-            <div class="flex flex-col gap-4 overflow-y-auto">
-            {% for feature in group.features %}
-                {% for featureValue in item.featureValues %}
-                    {% if featureValue.productFeature == feature %}
-                        {{ include('partials/_detail_field.html.twig', {
-                            label: feature.name,
-                            value: featureValue.value
-                        }) }}
+            {% for group in product.featureGroups %}
+                <div>
+                    {% if not ignoreGroups %}
+                        <div class="mb-3 bg-base-300 -mx-2 px-2 py-1 opacity-50">{{ group.name }}</div>
                     {% endif %}
-                {% endfor %}
+                    <div class="flex flex-col gap-4 overflow-y-auto">
+                        {% for feature in group.features %}
+                            {% for featureValue in itemProduct.featureValues %}
+                                {% if featureValue.model == null and featureValue.featureValue == null and featureValue.productFeature == feature %}
+                                    {% set feat = featureValue.productFeature.feature %}
+                                    {% if featureValue.modelSpecific %}
+                                        {{ include('partials/_detail_field.html.twig', {
+                                            label: feature.name,
+                                            value: 'Spécifique au modèle'
+                                        }) }}
+                                    {% elseif feat.type == 'select' %}
+                                        {{ include('partials/_detail_field.html.twig', {
+                                            label: feature.name,
+                                            value: featureValue.value|map(id => "#{feat.findOptionById(id).name}")|join('<br>')
+                                        }) }}
+                                    {% elseif feat.type == 'length' %}
+                                        {% set length = feature_registry.get('length') %}
+                                        {{ include('partials/_detail_field.html.twig', {
+                                            label: feature.name,
+                                            value: (featureValue.value / (10 ** feat.configuration.unit))|format_number() ~ ' ' ~ length.decodeUnit(feat.configuration.unit)
+                                        }) }}
+                                    {% elseif feat.type == 'dim2' %}
+                                        {% set dim2 = feature_registry.get('dim2') %}
+                                        {% set x = (featureValue.value.x / (10 ** feat.configuration.unit))|format_number() ~ ' ' ~ dim2.decodeUnit(feat.configuration.unit) %}
+                                        {% set y = (featureValue.value.y / (10 ** feat.configuration.unit))|format_number() ~ ' ' ~ dim2.decodeUnit(feat.configuration.unit) %}
+                                        {{ include('partials/_detail_field.html.twig', {
+                                            label: feature.name,
+                                            value: x ~ ' × ' ~ y
+                                        }) }}
+                                    {% else %}
+                                        {{ include('partials/_detail_field.html.twig', {
+                                            label: feature.name,
+                                            value: featureValue.value
+                                        }) }}
+                                    {% endif %}
+
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
-            </div>
         </div>
     {% endfor %}
+    <div class="w-full pt-4">
+        <turbo-frame
+                id="project-item-add-{{ item.id }}"
+                src="{{ path('app_project_item_add', { project: project.id, item: item.id }) }}"
+        >
+            <button class="btn btn-sm btn-ghost loading"></button>
+        </turbo-frame>
+    </div>
 </div>

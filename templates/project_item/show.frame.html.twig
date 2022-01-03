@@ -1,3 +1,7 @@
+{% macro model_quantities(quantities) %}
+    {{ quantities|map(q => q < 0 ? "#{-q}+" : q)|join(', ') }}
+{% endmacro %}
+
 <turbo-frame
         id="project-item-{{ item.id }}"
         class="block"
@@ -20,11 +24,57 @@
             <i class="fa fa-trash fa-lg"></i>
         </a>
     </div>
+    <div class="w-full pt-4 flex gap-4">
+        <div class="flex-grow">
+            {{ include('project_item/_features.html.twig', { item: item }) }}
 
-    {{ include('project_item/_features.html.twig', { item: item }) }}
+            <div class="flex flex-col gap-4 p-4 overflow-y-auto">
+                {{ include('partials/_detail_field.html.twig', {
+                    label: 'Quantités',
+                    value: item.models|map(m => m.count ~ ' modèle' ~ (m.count > 1 ? 's' : '') ~ ' en ' ~ _self.model_quantities(m.quantities))|join('<br>')
+                }) }}
+                {% if item.note is not empty %}
+                    {{ include('partials/_detail_field.html.twig', {
+                        label: 'Notes générales',
+                        value: item.note|nl2br
+                    }) }}
+                {% endif %}
+                {% if item.customerNote is not empty %}
+                    {{ include('partials/_detail_field.html.twig', {
+                        label: 'Notes à destination du client',
+                        value: item.customerNote|nl2br
+                    }) }}
+                {% endif %}
+                {% if item.supplierNote is not empty %}
+                    {{ include('partials/_detail_field.html.twig', {
+                        label: 'Notes à destination des fournisseurs',
+                        value: item.supplierNote|nl2br
+                    }) }}
+                {% endif %}
+                {% if item.internalNote is not empty %}
+                    {{ include('partials/_detail_field.html.twig', {
+                        label: 'Notes internes',
+                        value: item.internalNote|nl2br
+                    }) }}
+                {% endif %}
+            </div>
+        </div>
 
-    {{ include('partials/_detail_field.html.twig', {
-        label: 'Quantités',
-        value: item.quantities|join(', ')
-    }) }}
+        <div class="flex-grow">
+            <div class="text-lg mb-4">Devis fournisseurs</div>
+            <div id="project-item-estimate-list-{{ item.id }}" class="mb-4 flex flex-col gap-4">
+                {% for estimate in item.supplierEstimates %}
+                    {{ include('project_item/show_estimate.frame.html.twig', { project: item.project, item: item, estimate: estimate}) }}
+                {% endfor %}
+            </div>
+            <turbo-frame
+                    id="project-item-add-estimate-{{ item.id }}"
+                    src="{{ path('app_project_item_create_estimate', { project: project.id, item: item.id }) }}"
+                    class="block"
+            >
+                <button class="btn btn-sm btn-ghost loading"></button>
+            </turbo-frame>
+        </div>
+    </div>
+
 </turbo-frame>

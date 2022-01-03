@@ -1,6 +1,6 @@
 <turbo-frame id="product-features-add-{{ group.id }}">
     {{ form_start(form, { attr: { class: 'flex items-start gap-2'}}) }}
-    <div class="w-full align-middle pl-1 flex-grow">
+    <div class="w-full align-middle pl-1 flex-grow" data-controller="select">
         {{ form_widget(form.feature, { attr: { autofocus: true, class: "w-full"}}) }}
         {{ form_errors(form.feature, { attr: { class: "mt-2"}}) }}
     </div>

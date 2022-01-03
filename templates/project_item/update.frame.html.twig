@@ -1,12 +1,12 @@
 <turbo-frame id="project-item-{{ item.id }}">
-    {{ form_start(form) }}
+    {{ form_start(form, {attr: { novalidate: true, 'data-controller': 'auto-submit'}}) }}
     <div class="w-full flex items-center gap-2 py-2">
         <div class="align-middle pr-2"><i class="handle fa fa-lg fa-grip-vertical opacity-50"></i></div>
         <div class="w-full align-middle pl-1 flex-grow">
             {{ form_widget(form.name, { attr: { class: "w-full"}}) }}
         </div>
         <div class="align-middle pl-1">
-            <button class="btn text-success btn-ghost btn-circle ml-auto mt-1 flex flex-nowrap" formnovalidate>
+            <button class="btn text-success btn-ghost btn-circle ml-auto mt-1 flex flex-nowrap">
                 <i class="fa fa-check fa-lg"></i>
             </button>
         </div>
@@ -18,25 +18,59 @@
             </a>
         </div>
     </div>
-    {% set ignoreGroups = item.product.featureGroups|length <= 1 %}
-    <div class="px-8 py-4 rounded-lg bg-base-200 mt-4 mb-6 flex flex-col gap-4">
-        {% for group in item.product.featureGroups %}
+    {% set ignoreProductName = form.products|length <= 1 %}
+    <div class="px-8 py-4 rounded-lg bg-base-200 mt-4 mb-6 flex flex-col gap-4 divide-y divide-base-100">
+        {% for itemProductForm in form.products %}
+            {% set product = itemProductForm.vars.data.product %}
+            {% set ignoreGroups = product.featureGroups|length <= 1 %}
             <div>
-                {% if not ignoreGroups %}
-                    <div class="mb-3 bg-base-300 -mx-2 px-2 py-1 opacity-50">{{ group.name }}</div>
-                {% endif %}
-                <div class="flex flex-col gap-4 overflow-y-auto">
-                    {% for feature in group.features %}
-                        {% for featureValue in form.featureValues %}
-                            {% if featureValue.vars.data.productFeature == feature %}
-                                {{ form_row(featureValue, { row_attr: { class: 'mb-0' } }) }}
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </div>
+                {{ form_row(itemProductForm.name, {'row_attr': {class: ignoreProductName ? 'hidden' : ''}}) }}
+                {% for group in product.featureGroups %}
+                    <div>
+                        {% if not ignoreGroups %}
+                            <div class="mb-3 bg-base-300 -mx-2 px-2 py-1 opacity-50">{{ group.name }}</div>
+                        {% endif %}
+                        <div class="flex flex-col overflow-y-visible">
+                            {% for feature in group.features %}
+                                {% for featureValue in itemProductForm.featureValues %}
+                                    {% if featureValue.vars.data.model == null and featureValue.vars.data.productFeature == feature %}
+                                        <div class="flex items-end gap-4">
+                                            {% if not featureValue.vars.data.modelSpecific %}
+                                                {% if feature.feature.type == 'select' %}
+                                                    {{ form_row(featureValue.value, {attr: {'data-controller': 'select'}, row_attr: { class: 'mb-0 flex-1' }}) }}
+                                                {% else %}
+                                                    {{ form_row(featureValue.value, {row_attr: { class: 'mb-0' }}) }}
+                                                {% endif %}
+                                                <button name="model_specific_{{ featureValue.vars.data.id }}" type="button" data-action="auto-submit#submit">Commun</button>
+                                            {% else %}
+                                                <div class="block">
+                                                    <label>{{ feature.name }}</label>
+                                                    <button name="model_specific_{{ featureValue.vars.data.id }}" type="button" data-action="auto-submit#submit">Spécifique</button>
+                                                </div>
+                                            {% endif %}
+                                            {{ form_row(featureValue.modelSpecific) }}
+                                            {{ form_row(featureValue.projectItemProduct) }}
+                                            {{ form_row(featureValue.productFeature) }}
+{#                                            {{ form_row(featureValue.model) }}#}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         {% endfor %}
     </div>
-    {{ form_row(form.quantities) }}
-    {{ form_end(form) }}
+    <div id="project-item-models-{{ item.id }}"
+         class="px-8 py-4 rounded-lg bg-base-200 mb-6 flex flex-col gap-4 divide-y divide-base-100">
+        {{ include('project_item/_models.html.twig') }}
+    </div>
+    {{ form_row(form.action, {attr: {'data-auto-submit-target': 'action'}}) }}
+    {{ form_row(form.note) }}
+    {{ form_row(form.customerNote) }}
+    {{ form_row(form.supplierNote) }}
+    {{ form_row(form.internalNote) }}
+    {{ form_row(form._token) }}
+    {{ form_end(form, {render_rest: false}) }}
 </turbo-frame>

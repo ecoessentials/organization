@@ -1,22 +1,22 @@
 {% use 'form_div_layout.html.twig' %}
 
 {%- block form_row -%}
-    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('form-control mb-6')) }) -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('form-control mb-6 px-1')) }) -%}
     {{- parent() -}}
 {%- endblock form_row -%}
 
 {%- block widget_attributes -%}
-    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-1 w-full')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-red-700')) }) -%}
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('w-full')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-red-700')) }) -%}
     {{- parent() -}}
 {%- endblock widget_attributes -%}
 
 {%- block form_label -%}
-    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('label block')) }) -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('label block pb-1')) }) -%}
     {{- parent() -}}
 {%- endblock form_label -%}
 
 {%- block form_help -%}
-    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 text-base-200')) }) -%}
+    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 text-neutral-content text-sm')) }) -%}
     {{- parent() -}}
 {%- endblock form_help -%}
 
@@ -80,3 +80,37 @@
         {%- endif -%}
     {%- endfor -%}
 {%- endblock attributes -%}
+
+{% block feature_type_length_widget %}
+    <label class="input-group input-group-md">
+        <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <span>{{ unit }}</span>
+    </label>
+{% endblock %}
+
+{# {% block feature_type_dim2_widget %} #}
+{#    {% set dim2 = feature_registry.get('dim2') %} #}
+{#    {% set unit = dim2.decodeUnit(form.parent.vars.data.productFeature.feature.configuration.unit) %} #}
+{#    <div class="flex items-center gap-2"> #}
+{#        {% set value = form.x.vars.value %} #}
+{#        <label class="input-group input-group-md"> #}
+{#            <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/> #}
+{#            <span>{{ unit }}</span> #}
+{#        </label> #}
+{#        <span>×</span> #}
+{#        {% set value = form.y.vars.value %} #}
+{#        <label class="input-group input-group-md"> #}
+{#            <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/> #}
+{#            <span>{{ unit }}</span> #}
+{#        </label> #}
+{#    </div> #}
+{# {% endblock %} #}
+
+{% block feature_type_dim2_widget %}
+    <div class="flex gap-2 items-center">
+        {{ form_widget(form.x) }}
+        <span>×</span>
+        {{ form_widget(form.y) }}
+    </div>
+{% endblock %}
+

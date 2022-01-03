@@ -3,6 +3,7 @@
 namespace App\FeatureType;
 
 use App\Form\Feature\Configuration\IntegerConfigurationType;
+use App\Form\Feature\IntegerFeatureFormType;
 
 class IntegerFeatureType implements FeatureTypeInterface
 {
@@ -20,5 +21,15 @@ class IntegerFeatureType implements FeatureTypeInterface
     public function getConfigurationFormClass(): string
     {
         return IntegerConfigurationType::class;
+    }
+
+    public function getFormClass(): string
+    {
+        return IntegerFeatureFormType::class;
+    }
+
+    public function getChildren(): array
+    {
+        return [];
     }
 }

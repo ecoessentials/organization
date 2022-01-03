@@ -6,8 +6,10 @@
 parameters:
     feature_types:
         integer: Entier
-        boolean: Case à cocher
+#        boolean: Case à cocher
         select: Choix
+        length: Longueur
+        dim2: Dimensions 2D
 
 services:
     # default configuration for services in *this* file

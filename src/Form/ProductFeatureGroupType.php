@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Option;
 use App\Entity\ProductFeatureGroup;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

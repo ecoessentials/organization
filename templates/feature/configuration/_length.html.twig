@@ -1,0 +1,5 @@
+{% set length = feature_registry.get('length') %}
+{{ include('partials/_detail_field.html.twig', {label: 'Unité', value: length.decodeUnit(configuration.unit)}) }}
+{{ include('partials/_detail_field.html.twig', {label: 'Précision', value: length.decodeUnit(configuration.precision)}) }}
+{{ include('partials/_detail_field.html.twig', {label: 'Minimum', value: configuration.min ~ 'µ'}) }}
+{{ include('partials/_detail_field.html.twig', {label: 'Maximum', value: configuration.max ~ 'µ'}) }}

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<psalm errorLevel="1">
+    <projectFiles>
+        <directory name="src"/>
+    </projectFiles>
+    <plugins>
+        <pluginClass xmlns="https://getpsalm.org/schema/config" class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
+        <pluginClass xmlns="https://getpsalm.org/schema/config" class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+    </plugins>
+</psalm>

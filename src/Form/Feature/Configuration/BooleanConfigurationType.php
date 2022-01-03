@@ -2,7 +2,6 @@
 
 namespace App\Form\Feature\Configuration;
 
-use App\FeatureType\Configuration\BooleanFeatureConfiguration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

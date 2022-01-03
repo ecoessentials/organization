@@ -2,8 +2,6 @@
 
 namespace App\FeatureType;
 
-use App\FeatureType\Configuration\FeatureConfigurationInterface;
-
 interface FeatureTypeInterface
 {
     public function getName(): string;
@@ -11,4 +9,8 @@ interface FeatureTypeInterface
     public function getStorageType(): string;
 
     public function getConfigurationFormClass(): string;
+
+    public function getFormClass(): string;
+
+    public function getChildren(): array;
 }

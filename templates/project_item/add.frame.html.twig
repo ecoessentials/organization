@@ -1,0 +1,10 @@
+<turbo-frame id="project-item-add-{{ item.id }}">
+    {{ form_start(form, { attr: { class: 'flex items-start gap-2', 'data-controller': 'auto-submit'}}) }}
+    <div class="w-full align-middle pl-1 flex-grow" data-controller="select">
+        {{ form_widget(form.product, { attr: { autofocus: true, class: "w-full", 'data-action': 'change->auto-submit#submit'}}) }}
+        {{ form_errors(form.product, { attr: { class: "mt-2"}}) }}
+    </div>
+    <button formnovalidate
+            class="btn text-success btn-ghost btn-circle"><i class="fa fa-plus fa-lg"></i></button>
+    {{ form_end(form) }}
+</turbo-frame>

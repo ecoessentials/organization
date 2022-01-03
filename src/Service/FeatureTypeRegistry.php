@@ -6,7 +6,7 @@ use App\FeatureType\FeatureTypeInterface;
 
 class FeatureTypeRegistry
 {
-    private $featureTypes = [];
+    private array $featureTypes = [];
 
     public function register(FeatureTypeInterface $featureType)
     {

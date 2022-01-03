@@ -1,0 +1,55 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~slim-select/src/slim-select/slimselect';
+
+@import "~tailwindcss/base";
+@import "~tailwindcss/components";
+@import "~tailwindcss/utilities";
+
+@layer components {
+    input[type=text], input[type=number] {
+        @apply input input-bordered;
+    }
+
+    input[type=checkbox] {
+        @apply checkbox;
+    }
+
+    textarea {
+        @apply textarea textarea-bordered;
+    }
+
+    select {
+        @apply select select-bordered;
+    }
+
+
+}
+
+label.required::after {
+    content: ' *';
+    color: #DC3545;
+}
+
+.ss-main .ss-single-selected {
+    @apply input input-bordered text-base-content;
+}
+
+.ss-content {
+    @apply bg-base-100 border transition duration-200 ease-in-out border-base-content border-opacity-20 rounded-btn;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    .ss-list .ss-option {
+        @apply text-base-content;
+    }
+
+    .ss-list .ss-option.ss-disabled.ss-option-selected {
+        @apply bg-base-300 bg-opacity-20;
+    }
+
+    .ss-search input {
+        @apply input input-sm m-1;
+    }
+}
+
+

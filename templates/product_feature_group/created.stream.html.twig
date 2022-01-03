@@ -1,4 +1,4 @@
-<turbo-stream action="append" target="product-feature-groups-list">
+<turbo-stream action="append" target="product-feature-groups-list-{{ product.id }}">
     <template>
         {{ include('product_feature_group/show.frame.html.twig', { product: group.product, group: group}) }}
     </template>

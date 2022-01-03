@@ -1,4 +1,10 @@
 {
+    "amphp/amp": {
+        "version": "v2.6.1"
+    },
+    "amphp/byte-stream": {
+        "version": "v1.8.1"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -7,6 +13,18 @@
     },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
+    },
+    "composer/pcre": {
+        "version": "1.0.0"
+    },
+    "composer/semver": {
+        "version": "3.2.6"
+    },
+    "composer/xdebug-handler": {
+        "version": "2.0.2"
+    },
+    "dnoegel/php-xdg-base-dir": {
+        "version": "v0.1.1"
     },
     "doctrine/annotations": {
         "version": "1.13",
@@ -91,6 +109,12 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "felixfbecker/advanced-json-rpc": {
+        "version": "v3.2.1"
+    },
+    "felixfbecker/language-server-protocol": {
+        "version": "1.5.1"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
@@ -118,8 +142,14 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "netresearch/jsonmapper": {
+        "version": "v4.0.0"
+    },
     "nikic/php-parser": {
         "version": "v4.13.0"
+    },
+    "openlss/lib-array2xml": {
+        "version": "1.0.0"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
@@ -138,6 +168,15 @@
     },
     "phpspec/prophecy": {
         "version": "1.14.0"
+    },
+    "phpstan/extension-installer": {
+        "version": "1.1.0"
+    },
+    "phpstan/phpstan": {
+        "version": "1.2.0"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "1.0.2"
     },
     "phpunit/php-code-coverage": {
         "version": "9.2.7"
@@ -167,6 +206,9 @@
             "phpunit.xml.dist",
             "tests/bootstrap.php"
         ]
+    },
+    "psalm/plugin-symfony": {
+        "version": "v3.1.0"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -248,6 +290,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "shapecode/hidden-entity-type-bundle": {
+        "version": "5.1.0"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.6",
@@ -665,10 +710,22 @@
     "twig/extra-bundle": {
         "version": "v3.3.3"
     },
+    "twig/intl-extra": {
+        "version": "v3.3.4"
+    },
     "twig/twig": {
         "version": "v3.3.3"
     },
+    "vimeo/psalm": {
+        "version": "v4.15.0"
+    },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "webmozart/path-util": {
+        "version": "2.3.0"
+    },
+    "weirdan/doctrine-psalm-plugin": {
+        "version": "v2.0.1"
     }
 }

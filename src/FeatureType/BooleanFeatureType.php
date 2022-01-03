@@ -22,4 +22,14 @@ class BooleanFeatureType implements FeatureTypeInterface
         return BooleanConfigurationType::class;
     }
 
+    public function getFormClass(): string
+    {
+        // TODO: Implement getFormClass() method.
+    }
+
+    public function getChildren(): array
+    {
+        return [];
+    }
+
 }

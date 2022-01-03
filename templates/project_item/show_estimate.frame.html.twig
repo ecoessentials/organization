@@ -1,0 +1,26 @@
+<turbo-frame id="project-item-estimate-{{ estimate.id }}">
+    <div class="flex items-center gap-2 py-2">
+        <div class="w-full align-middle flex-grow">
+            {{ estimate.supplier.name }}
+        </div>
+        <a href="{{ path('app_' ~ resourceType ~ '_update', { project: project.id, item: item.id }) }}"
+           class="ml-auto btn btn-ghost btn-circle"
+        >
+            <i class="fa fa-edit fa-lg"></i>
+        </a>
+        <a href="{{ path('app_project_item_estimate_delete', { project: project.id, item: item.id, estimate: estimate.id }) }}"
+           class="btn btn-error btn-ghost btn-circle text-error"
+           data-turbo-frame="modal-confirmation"
+        >
+            <i class="fa fa-trash fa-lg"></i>
+        </a>
+    </div>
+    <div>
+        {% if estimate.price == null %}
+            <div class="badge badge-error">En attente du prix</div>
+        {% else %}
+            {{ estimate.price }}
+        {% endif %}
+
+    </div>
+</turbo-frame>

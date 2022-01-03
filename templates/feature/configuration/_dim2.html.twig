@@ -1,0 +1,3 @@
+{% set dim2 = feature_registry.get('dim2') %}
+{{ include('partials/_detail_field.html.twig', {label: 'Unité', value: dim2.decodeUnit(configuration.unit)}) }}
+{{ include('partials/_detail_field.html.twig', {label: 'Précision', value: dim2.decodeUnit(configuration.precision)}) }}

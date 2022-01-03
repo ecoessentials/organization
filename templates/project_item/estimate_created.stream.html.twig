@@ -1,0 +1,16 @@
+<turbo-stream action="append" target="project-item-estimate-list-{{ item.id }}">
+    <template>
+        {{ include('project_item/show_estimate.frame.html.twig', { project: item.project, item: item, estimate: estimate}) }}
+    </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="project-item-add-estimate-{{ item.id }}">
+    <template>
+        <turbo-frame
+                id="project-item-add-estimate-{{ item.id }}"
+                src="{{ path('app_project_item_create_estimate', { project: project.id, item: item.id }) }}"
+        >
+            <button class="btn btn-sm btn-ghost loading"></button>
+        </turbo-frame>
+    </template>
+</turbo-stream>

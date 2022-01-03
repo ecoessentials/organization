@@ -2,18 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Feature;
-use App\Entity\Option;
 use App\Entity\Product;
-use App\Entity\ProductFeature;
 use App\Entity\ProductFeatureGroup;
-use App\Form\OptionType;
 use App\Form\ProductFeatureGroupType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Turbo\Stream\TurboStreamResponse;
 
@@ -65,15 +59,16 @@ class FeatureGroupController extends ControllerBase
     }
 
     #[Route('/products/{product<\d+>}/groups/{group<\d+>}/created', name: 'app_product_feature_group_created')]
-    public function added(Product $product, ProductFeatureGroup $group)
+    public function added(Product $product, ProductFeatureGroup $group): Response
     {
         return $this->render('product_feature_group/created.stream.html.twig', [
+            'product' => $product,
             'group' => $group
         ], new TurboStreamResponse());
     }
 
     #[Route('/products/{product<\d+>}/groups/{group<\d+>}', name: 'app_product_feature_group_show')]
-    public function show(Product $product, ProductFeatureGroup $group)
+    public function show(Product $product, ProductFeatureGroup $group): Response
     {
         return $this->renderForm('product_feature_group/show.frame.html.twig', [
             'product' => $product,
@@ -103,18 +98,18 @@ class FeatureGroupController extends ControllerBase
         ]);
     }
 
-    #[Route('/products/{product<\d+>}/groupes/{group<\d+>}/updated', name: 'app_product_feature_group_updated')]
-    public function modified(Product $product, ProductFeatureGroup $group)
+    #[Route('/products/{product<\d+>}/groups/{group<\d+>}/updated', name: 'app_product_feature_group_updated')]
+    public function modified(ProductFeatureGroup $group): Response
     {
         return $this->render('product_feature_group/updated.stream.html.twig', [
             'group' => $group
         ], new TurboStreamResponse());
     }
 
-    #[Route('/products/{product<\d+>}/groupes/{group<\d+>}/delete', name: 'app_product_feature_group_delete')]
-    public function delete(Product $product, ProductFeatureGroup $group, Request $request)
+    #[Route('/products/{product<\d+>}/groups/{group<\d+>}/delete', name: 'app_product_feature_group_delete')]
+    public function delete(Product $product, ProductFeatureGroup $group, Request $request): Response
     {
-        $form = $this->createFormBuilder(null)->getForm();
+        $form = $this->createFormBuilder()->getForm();
 
         $form->handleRequest($request);
 
@@ -135,17 +130,20 @@ class FeatureGroupController extends ControllerBase
         ]);
     }
 
-    #[Route('/products/{product<\d+>}/groupes/{group<\d+>}/deleted', name: 'app_product_feature_group_deleted')]
-    public function deleted(Product $product, int $group) {
+    #[Route('/products/{product<\d+>}/groups/{group<\d+>}/deleted', name: 'app_product_feature_group_deleted')]
+    public function deleted(int $group): Response
+    {
         return $this->render('product_feature_group/deleted.stream.html.twig', [
             'groupId' => $group
         ], new TurboStreamResponse());
     }
 
-    #[Route('/products/{product<\d+>}/groupes/{group<\d+>}/move', name: 'app_product_feature_group_move', methods: ['POST'])]
-    public function move(Product $product, ProductFeatureGroup $group, Request $request)
+    #[Route('/products/{product<\d+>}/groups/{group<\d+>}/move', name: 'app_product_feature_group_move', methods: ['POST'])]
+    public function move(ProductFeatureGroup $group, Request $request): Response
     {
-        $position = json_decode($request->getContent(), true)['position'];
+        /** @var array{position: int} $requestContent */
+        $requestContent = json_decode($request->getContent(), true);
+        $position = $requestContent['position'];
 
         $group->setPosition($position);
         $this->entityManager->flush();

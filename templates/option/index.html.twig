@@ -1,0 +1,17 @@
+<turbo-frame id="select-options">
+    <div
+            id="select-options-list"
+            class="divide-y divide-base-200 mb-4"
+            data-controller="sortable-collection"
+            data-sortable-collection-handle-value=".handle"
+    >
+        {% for option in feature.options %}
+            {{ include('option/show.frame.html.twig', { feature: option.feature,  option: option}) }}
+        {% endfor %}
+    </div>
+
+    <turbo-frame
+            id="select-options-add"
+            src="{{ path('app_option_create', { feature: feature.id }) }}"
+    ></turbo-frame>
+</turbo-frame>
